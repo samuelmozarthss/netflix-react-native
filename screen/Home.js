@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {StatusBar, Dimensions} from 'react-native';
+import {useSpring, animated, config, useSprings} from '@react-spring/native';
 
 import styled from 'styled-components/native';
 
@@ -25,15 +26,21 @@ const Poster = styled.ImageBackground`
   height: ${(Dimensions.get('window').height * 81) / 100}px;
 `;
 
-
-
-/**
- * Utilizando a biblioteca react-spring
- * Anime o componente Post para que ele desapareça assim que essa tela for construida.
- * Leve a opacidade dele de 1 para 0 em 3 segundos.
- */
+const AnimatedMovies = animated(Movies);
 
 const Home = () => {
+  const animations = [];
+  animations.push({
+    to: {opacity: 0},
+    delay: 2000,
+    config: {duration: 2000, ...config.default},
+  });
+  animations.push({
+    to: {opacity: 0},
+    delay: 1000,
+    config: {duration: 3000, ...config.default},
+  });
+  const springProps = useSprings(2, animations);
   return (
     <>
       <StatusBar
@@ -43,11 +50,21 @@ const Home = () => {
       />
       <Container>
         <Poster source={require('../assets/poster.jpg')}>
-            <Header />
-            <Hero />
+          <Header />
+          <Hero />
         </Poster>
-        <Movies label="Recomendados" item={api} />
-        <Movies label="Top 10" item={api} />
+        {springProps.map((item, index) => {
+          return (
+            <AnimatedMovies
+              key={index}
+              style={item}
+              label="Recomendados"
+              item={api}
+            />
+          );
+        })}
+
+        <AnimatedMovies label="Top 10" item={api} />
       </Container>
     </>
   );
