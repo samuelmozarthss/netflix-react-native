@@ -1,5 +1,6 @@
-import React from 'react';
-import {Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import {Dimensions, TouchableNativeFeedback} from 'react-native';
+import {animated, useSpring} from '@react-spring/native';
 
 import styled from 'styled-components/native';
 
@@ -21,28 +22,42 @@ const MoviePoster = styled.Image`
   height: 150px;
 `;
 
+const AnimatedMoviePoster = animated(MoviePoster);
+
 const MovieCard = styled.View`
   padding-right: 9px;
 `;
 
-/**
- * Utilizando a biblioteca react-spring
- * Anime os componentes  Moviews para que ele desapareça assim que essa tela for construida.
- * Leve a opacidade dele de 1 para 0
- * Utilizem várias molas -> useSprings
- * O item 1 deve desaparecer em 1 segundos....
- * O item 2 deve desaparecer em 2 segundos....
- */
-
 const Movies = ({label, item}) => {
+  const [pressing, setPressedIn] = useState({pressed: false});
+
+  const translate = useSpring({to: {scale: 1.1}, from: {scale: 1}});
+
+  console.log(pressing);
   return (
     <Container>
       <Label>{label}</Label>
       <MovieScroll horizontal>
-        {item.map((movie, item) => {
+        {item.map((movie, index) => {
           return (
-            <MovieCard key={String(item)}>
-              <MoviePoster resizeMode="cover" source={movie} />
+            <MovieCard key={String(index)}>
+              <TouchableNativeFeedback
+                onPressIn={() => {
+                  setPressedIn({pressed: true, index: index});
+                  console.log('Estou sendo apertado');
+                }}
+                onPressOut={() => {
+                  setPressedIn({pressed: false});
+                  console.log('Fui liberado');
+                }}>
+                <AnimatedMoviePoster
+                  style={
+                    index === pressing.index ? {transform: [translate]} : null
+                  }
+                  resizeMode="cover"
+                  source={movie}
+                />
+              </TouchableNativeFeedback>
             </MovieCard>
           );
         })}

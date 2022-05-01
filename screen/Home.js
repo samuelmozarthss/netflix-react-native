@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {StatusBar, Dimensions} from 'react-native';
-import {useSpring, animated, config, useSprings} from '@react-spring/native';
+import {animated, config, useSprings} from '@react-spring/native';
 
 import styled from 'styled-components/native';
 
@@ -26,21 +26,7 @@ const Poster = styled.ImageBackground`
   height: ${(Dimensions.get('window').height * 81) / 100}px;
 `;
 
-const AnimatedMovies = animated(Movies);
-
 const Home = () => {
-  const animations = [];
-  animations.push({
-    to: {opacity: 0},
-    delay: 2000,
-    config: {duration: 2000, ...config.default},
-  });
-  animations.push({
-    to: {opacity: 0},
-    delay: 1000,
-    config: {duration: 3000, ...config.default},
-  });
-  const springProps = useSprings(2, animations);
   return (
     <>
       <StatusBar
@@ -53,18 +39,8 @@ const Home = () => {
           <Header />
           <Hero />
         </Poster>
-        {springProps.map((item, index) => {
-          return (
-            <AnimatedMovies
-              key={index}
-              style={item}
-              label="Recomendados"
-              item={api}
-            />
-          );
-        })}
-
-        <AnimatedMovies label="Top 10" item={api} />
+        <Movies label="Recomendados" item={api} />
+        <Movies label="Top 10" item={api} />
       </Container>
     </>
   );
