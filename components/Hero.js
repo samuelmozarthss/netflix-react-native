@@ -5,6 +5,8 @@ import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import notifee from '@notifee/react-native';
+
 const Container = styled.View`
   position: absolute;
   width: 100%;
@@ -70,6 +72,23 @@ const TextButtonPlay = styled.Text`
   padding-left: 5px;
 `;
 
+async function onDisplayNotification() {
+  // Create a channel
+  const channelId = await notifee.createChannel({
+    id: 'default',
+    name: 'Default Channel',
+  });
+
+  // Display a notification
+  await notifee.displayNotification({
+    title: 'Notification Title',
+    body: 'Main body content of the notification',
+    android: {
+      channelId,
+    },
+  });
+}
+
 const Hero = ({style}) => {
   return (
     <Container style={style}>
@@ -87,7 +106,12 @@ const Hero = ({style}) => {
 
         <Play>
           <Ionicons name="ios-play" size={26} />
-          <TextButtonPlay>Assistir</TextButtonPlay>
+          <TextButtonPlay
+            onPress={() => {
+              onDisplayNotification();
+            }}>
+            Assistir
+          </TextButtonPlay>
         </Play>
 
         <Button>

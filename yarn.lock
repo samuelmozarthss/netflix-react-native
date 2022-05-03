@@ -1195,6 +1195,11 @@
     "@types/yargs" "^15.0.0"
     "chalk" "^4.0.0"
 
+"@notifee/react-native@^5.2.1":
+  "integrity" "sha512-qtGU2161qF7SQEFBOGec+EMLVX6ISBgpBllEjq6zd/zRZ35RraqkyFS/S84N6J14l6D5MyNLUqKRkZNG2aMFqg=="
+  "resolved" "https://registry.npmjs.org/@notifee/react-native/-/react-native-5.2.1.tgz"
+  "version" "5.2.1"
+
 "@react-native-community/cli-debugger-ui@^5.0.1":
   "integrity" "sha512-5gGKaaXYOVE423BUqxIfvfAVSj5Cg1cU/TpGbeg/iqpy2CfqyWqJB3tTuVUbOOiOvR5wbU8tti6pIi1pchJ+oA=="
   "resolved" "https://registry.npmjs.org/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-5.0.1.tgz"
