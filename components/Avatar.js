@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {MaterialIcons} from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import styled, {css} from 'styled-components/native';
 
 const Container = styled.TouchableOpacity`
@@ -9,11 +9,11 @@ const Container = styled.TouchableOpacity`
 `;
 
 const avatarSize = css`
-  width: ${(props) => {
+  width: ${props => {
     console.log('avatarSize', props);
     return props.big ? '100px' : '60px';
   }};
-  height: ${(props) => (props.big ? '100px' : '60px')};
+  height: ${props => (props.big ? '100px' : '60px')};
   margin: 10px;
 `;
 
@@ -41,16 +41,16 @@ const OverlayContainer = styled.View`
   align-items: center;
 `;
 
-const Editable = (props) => {
+const Editable = props => {
   return props.edit ? (
     <OverlayContainer big={props.big}>
       <Overlay big={props.big} />
-      <MaterialIcons name="edit" size={24} color="white" />
+      <Icon name="edit" size={24} color="white" />
     </OverlayContainer>
   ) : null;
 };
 
-const Avatar = (props) => {
+const Avatar = props => {
   console.log('avatar', props);
   return (
     <Container style={{alignItems: 'center'}} onPress={props.onPress}>

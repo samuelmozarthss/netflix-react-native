@@ -81,8 +81,8 @@ async function onDisplayNotification() {
 
   // Display a notification
   await notifee.displayNotification({
-    title: 'Notification Title',
-    body: 'Main body content of the notification',
+    title: 'Play Outer Banks',
+    body: 'Im watching outer banks in Netflix',
     android: {
       channelId,
     },

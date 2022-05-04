@@ -21,16 +21,18 @@ const RowContainer = styled.View`
   justify-content: center;
 `;
 
-const twoBytwo = (profiles) => {
+const twoBytwo = profiles => {
   const result = [];
   profiles.map((item, index) => {
-    if (index % 2 === 0) result.push([]);
+    if (index % 2 === 0) {
+      result.push([]);
+    }
     result[Math.floor(index / 2)].push(item);
   });
   return result;
 };
 
-const ProfileToEdit = (props) => {
+const ProfileToEdit = props => {
   useEffect(() => {
     props.navigation.setOptions({
       title: 'Gerenciar perfis',
@@ -64,7 +66,7 @@ const ProfileToEdit = (props) => {
   );
 };
 
-const Row = (props) => {
+const Row = props => {
   return (
     <RowContainer style={{flexDirection: 'row', justifyContent: 'center'}}>
       {props.items.map((column, colIndex) => (

@@ -33,7 +33,7 @@ let iconsAvailables = [
   require('../assets/avatars/avatar1.png'),
 ];
 
-const ChooseIcon = (props) => {
+const ChooseIcon = props => {
   useEffect(() => {
     props.navigation.setOptions({
       title: 'Choose your Avatar',

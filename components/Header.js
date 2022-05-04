@@ -21,13 +21,18 @@ const Menu = styled.Text`
   letter-spacing: 0.1px;
 `;
 
-const Header = () => {
+const Header = ({navigation}) => {
   return (
     <Container>
       <Logo resizeMode="contain" source={require('../assets/logo.png')} />
       <Menu>Séries</Menu>
       <Menu>Filmes</Menu>
-      <Menu>Minha lista</Menu>
+      <Menu
+        onPress={() => {
+          navigation.navigate('ProfileToEdit');
+        }}>
+        Minha lista
+      </Menu>
     </Container>
   );
 };

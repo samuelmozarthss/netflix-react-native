@@ -26,7 +26,7 @@ const Poster = styled.ImageBackground`
   height: ${(Dimensions.get('window').height * 81) / 100}px;
 `;
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <>
       <StatusBar
@@ -36,7 +36,7 @@ const Home = () => {
       />
       <Container>
         <Poster source={require('../assets/poster.jpg')}>
-          <Header />
+          <Header navigation={navigation} />
           <Hero />
         </Poster>
         <Movies label="Recomendados" item={api} />
