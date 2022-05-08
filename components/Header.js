@@ -27,12 +27,7 @@ const Header = ({navigation}) => {
       <Logo resizeMode="contain" source={require('../assets/logo.png')} />
       <Menu>Séries</Menu>
       <Menu>Filmes</Menu>
-      <Menu
-        onPress={() => {
-          navigation.navigate('ProfileToEdit');
-        }}>
-        Minha lista
-      </Menu>
+      <Menu>Minha lista</Menu>
     </Container>
   );
 };

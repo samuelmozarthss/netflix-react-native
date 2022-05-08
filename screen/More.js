@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import Avatar from '../components/Avatar';
-import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Screen = styled.View`
@@ -92,8 +91,8 @@ const editProfile = (navigation, profiles) => {
 };
 
 const More = props => {
-  console.log('##### ROUTE.PARAMS #####', props.route.params);
-  console.log('##### ROUTE #####', props.route);
+  console.log('ROUTE.PARAMS', props.route.params);
+  console.log('ROUTE', props.route);
   replaceAvatarsWithImage(props, profilesAvailables);
 
   return (
