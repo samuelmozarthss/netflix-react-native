@@ -1,20 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {StatusBar, Dimensions} from 'react-native';
-import {animated, config, useSprings} from '@react-spring/native';
-
 import styled from 'styled-components/native';
 
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Movies from '../components/Movies';
 
-const api = [
-  require('../assets/movie1.jpg'),
-  require('../assets/movie2.jpg'),
-  require('../assets/movie3.jpg'),
-  require('../assets/movie4.jpg'),
-];
+import {getGeoLocation, filterByCountry} from '../services/MovieFilter';
+
+const api = require('../assets/movies.json');
 
 const Container = styled.ScrollView`
   flex: 1;
@@ -27,6 +22,45 @@ const Poster = styled.ImageBackground`
 `;
 
 const Home = ({navigation}) => {
+  const [position, setPosition] = useState(null);
+  const [nationalMovies, setNationalMovies] = useState([]);
+  const [internationalMovies, setInternationalMovies] = useState([]);
+
+  useEffect(() => {
+    const obtainLocation = async () => {
+      try {
+        const positionResult = await getGeoLocation();
+        setPosition(positionResult);
+      } catch (error) {
+        console.log('Obtain location error', error);
+      }
+    };
+
+    obtainLocation();
+  }, []);
+
+  useEffect(() => {
+    const loadingNationalMovies = async () => {
+      const allMovies = require('../assets/movies.json');
+      let filteredNationalMovies = [];
+
+      if (position !== null) {
+        filteredNationalMovies = await filterByCountry(allMovies, position);
+        setNationalMovies(filteredNationalMovies);
+      }
+
+      setInternationalMovies(
+        allMovies.filter((item, index) => {
+          return !filteredNationalMovies.includes(item);
+        }),
+      );
+    };
+
+    loadingNationalMovies();
+  }, [position]);
+
+  console.log('position :', position);
+  console.log('nationalMovies :', nationalMovies);
   return (
     <>
       <StatusBar
@@ -39,7 +73,10 @@ const Home = ({navigation}) => {
           <Header navigation={navigation} />
           <Hero />
         </Poster>
-        <Movies label="Recomendados" item={api} />
+        {nationalMovies && nationalMovies.length > 0 && (
+          <Movies label="Nacional" item={nationalMovies} />
+        )}
+        <Movies label="Recomendados" item={internationalMovies} />
         <Movies label="Top 10" item={api} />
       </Container>
     </>

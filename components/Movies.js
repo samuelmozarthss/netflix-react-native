@@ -33,7 +33,6 @@ const Movies = ({label, item}) => {
 
   const translate = useSpring({to: {scale: 1.1}, from: {scale: 1}});
 
-  console.log(pressing);
   return (
     <Container>
       <Label>{label}</Label>
@@ -55,7 +54,7 @@ const Movies = ({label, item}) => {
                     index === pressing.index ? {transform: [translate]} : null
                   }
                   resizeMode="cover"
-                  source={movie}
+                  source={{uri: movie.Poster}}
                 />
               </TouchableNativeFeedback>
             </MovieCard>
