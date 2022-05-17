@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import {translate} from '../language/Utils';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ function Tabs() {
         component={Home}
         options={{
           headerShown: false,
-          tabBarLabel: 'Home',
+          tabBarLabel: `${translate('home')}`,
           tabBarIcon: ({color, size}) => (
             <Icon name="home" size={size} color={color} />
           ),
@@ -36,7 +37,7 @@ function Tabs() {
         name="Search"
         component={Doing}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: `${translate('search')}`,
           tabBarIcon: ({color, size}) => (
             <AntDesignIcon name="search1" size={size} color={color} />
           ),
@@ -46,7 +47,7 @@ function Tabs() {
         name="Soon"
         component={Doing}
         options={{
-          tabBarLabel: 'Soon',
+          tabBarLabel: `${translate('soon')}`,
           tabBarIcon: ({color, size}) => (
             <MaterialIcon name="perm-media" size={size} color={color} />
           ),
@@ -56,7 +57,7 @@ function Tabs() {
         name="Downloads"
         component={Doing}
         options={{
-          tabBarLabel: 'Downloads',
+          tabBarLabel: `${translate('downloads')}`,
           tabBarIcon: ({color, size}) => (
             <FeatherIcon name="download" size={size} color={color} />
           ),
@@ -67,7 +68,7 @@ function Tabs() {
         component={More}
         options={{
           headerShown: false,
-          tabBarLabel: 'More',
+          tabBarLabel: `${translate('more')}`,
           tabBarIcon: ({color, size}) => (
             <FeatherIcon name="menu" size={size} color={color} />
           ),

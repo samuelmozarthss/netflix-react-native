@@ -93,8 +93,8 @@ const editProfile = (navigation, profiles) => {
 };
 
 const More = props => {
-  console.log('ROUTE.PARAMS', props.route.params);
-  console.log('ROUTE', props.route);
+  // console.log('ROUTE.PARAMS', props.route.params);
+  // console.log('ROUTE', props.route);
   replaceAvatarsWithImage(props, profilesAvailables);
 
   return (
@@ -111,8 +111,8 @@ const More = props => {
                     uri={item.uri}
                     name={item.name}
                     onPress={() => {
-                      setUser(item);
                       selectProfile(props.navigation, item);
+                      setUser(item);
                     }}
                   />
                 );

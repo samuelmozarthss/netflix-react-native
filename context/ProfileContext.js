@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 export const ProfileContext = React.createContext({});
 
-export const ProfileProfile = props => {
+export const ProfileProvider = props => {
   const [user, setUser] = useState(null);
   return (
     <ProfileContext.Provider value={{user, setUser}}>

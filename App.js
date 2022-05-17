@@ -11,6 +11,8 @@ import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ProfileProvider} from './context/ProfileContext';
+import {getLanguage, setLanguage} from './language/Utils';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,16 +33,6 @@ function Tabs() {
           tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => {
             return <Icon name="home" size={size} color={color} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="More"
-        component={More}
-        options={{
-          tabBarLabel: 'More',
-          tabBarIcon: ({color, size}) => {
-            return <Icon name="menu" size={size} color={color} />;
           },
         }}
       />
@@ -74,12 +66,25 @@ function Tabs() {
           },
         }}
       />
+      <Tab.Screen
+        name="More"
+        component={More}
+        options={{
+          tabBarLabel: 'More',
+          tabBarIcon: ({color, size}) => {
+            return <Icon name="menu" size={size} color={color} />;
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 }
 
 const App = () => {
   useEffect(() => {
+    const language = getLanguage();
+    setLanguage(language);
+
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
@@ -87,18 +92,20 @@ const App = () => {
     return unsubscribe;
   }, []);
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Tab"
-          component={Tabs}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen name="ProfileToEdit" component={ProfileToEdit} />
-        <Stack.Screen name="ChooseIcon" component={ChooseIcon} />
-        <Stack.Screen name="Camera" component={Camera} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ProfileProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Tab"
+            component={Tabs}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="ProfileToEdit" component={ProfileToEdit} />
+          <Stack.Screen name="ChooseIcon" component={ChooseIcon} />
+          <Stack.Screen name="Camera" component={Camera} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ProfileProvider>
   );
 };
 export default App;

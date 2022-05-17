@@ -30,20 +30,3 @@ export const filterByCountry = async (movies, geoPosition) => {
   });
   return nationalMovies;
 };
-
-// Geolocation.getCurrentPosition(
-//   position => {
-//     console.log('POSITION: ', position);
-//     const lat = position.coords.latitude;
-//     const lng = position.coords.longitude;
-//     Geocoder.geocodePosition({lat, lng}).then(result => {
-//       console.log('LOCATIONS: ', result[0]);
-//     });
-//   },
-//   error => {
-//     console.log('ERROR: ', error.code, error.message);
-//   },
-//   {
-
-//   },
-// );

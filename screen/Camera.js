@@ -39,7 +39,7 @@ const CameraScreen = props => {
               flash: 'on',
             })
             .then(photo => {
-              console.log('PHOTO', photo.path);
+              // console.log('PHOTO', photo.path);
               props.navigation.navigate('More', {
                 image: `file://${photo.path}`,
                 name: props.route.params.name,

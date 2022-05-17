@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
-
+import React, {useEffect, useState, useContext} from 'react';
 import {StatusBar, Dimensions} from 'react-native';
 import styled from 'styled-components/native';
-
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Movies from '../components/Movies';
-
+import {ProfileContext} from '../context/ProfileContext';
 import {getGeoLocation, filterByCountry} from '../services/MovieFilter';
+import {getLanguage} from '../language/Utils';
 
 const api = require('../assets/movies.json');
 
@@ -25,6 +24,15 @@ const Home = ({navigation}) => {
   const [position, setPosition] = useState(null);
   const [nationalMovies, setNationalMovies] = useState([]);
   const [internationalMovies, setInternationalMovies] = useState([]);
+  const {user} = useContext(ProfileContext);
+  let resumedMovies = [];
+
+  getLanguage();
+
+  if (user && user.name) {
+    const moviesJson = require('../assets/movieToResume.json');
+    resumedMovies = moviesJson[user.name];
+  }
 
   useEffect(() => {
     const obtainLocation = async () => {
@@ -59,8 +67,8 @@ const Home = ({navigation}) => {
     loadingNationalMovies();
   }, [position]);
 
-  console.log('position :', position);
-  console.log('nationalMovies :', nationalMovies);
+  // console.log('position :', position);
+  // console.log('nationalMovies :', nationalMovies);
   return (
     <>
       <StatusBar
@@ -73,6 +81,9 @@ const Home = ({navigation}) => {
           <Header navigation={navigation} />
           <Hero />
         </Poster>
+        {resumedMovies && resumedMovies.length > 0 && (
+          <Movies label="Continuar Assistindo" item={resumedMovies} />
+        )}
         {nationalMovies && nationalMovies.length > 0 && (
           <Movies label="Nacional" item={nationalMovies} />
         )}
